@@ -1,33 +1,40 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import Card from "../components/molecules/Card";
+import useFetchData from "../hooks/useFetchData";
+import usePullToRefresh from "../hooks/usePullToRefresh";
 import Book from "../types/interfaces/Book";
-import { getData } from "../utils/fetchData";
+import LoadingSpinner from "../components/molecules/LoadingSpinner";
+import Header from "../components/organisms/Header";
+import RefreshSpinner from "../components/molecules/RefreshSpinner";
 
 const Home: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>([]);
+  const { data: books = [], refetch, isFetching, loading, error } = useFetchData("book");
 
-  const fetchBooks = useCallback(async () => {
-    try {
-      const fetchedBooks = await getData("books");
-      setBooks(fetchedBooks);
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    }
-  }, []);
+  const onRefresh = () => {
+    refetch();
+  };
 
-  useEffect(() => {
-    fetchBooks();
-  }, [fetchBooks]);
+  const { pullChange } = usePullToRefresh({ onRefresh });
+  console.log('isFetching', isFetching)
 
   return (
-    <div>
-      <main>
-        <div className="card-list">
-          {books.map((book) => (
-            <Card key={book.id} book={book} />
-          ))}
-        </div>
-      </main>
+    <div style={{position: "relative" }} className="page">
+      <RefreshSpinner pullChange={pullChange} isFetching={isFetching} />
+      <div className="container">
+        <Header title="Books" />
+        {loading ? (
+          <div className="loading-card-list">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <div className="card-list">
+            {books?.map((book: Book) => (
+              <Card key={book.id} book={book} />
+            ))}
+            {error && <p>Error: {error}</p>}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

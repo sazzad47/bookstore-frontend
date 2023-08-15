@@ -1,40 +1,38 @@
 import React from 'react';
 import LoadingSpinnerProps from '../../types/molecules/LoadingSpinner';
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 24, color = '#000' }) => {
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 40, color = '#701a75' }) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: size,
-        height: size,
-      }}
-    >
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 38 38"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke={color}
-      >
-        <g fill="none" fillRule="evenodd">
-          <g transform="translate(1 1)" strokeWidth="2">
-            <circle strokeOpacity=".5" cx="18" cy="18" r="18" />
-            <path d="M36 18c0-9.94-8.06-18-18-18">
-              <animateTransform
-                attributeName="transform"
-                type="rotate"
-                from="0 18 18"
-                to="360 18 18"
-                dur="1s"
-                repeatCount="indefinite"
-              />
-            </path>
-          </g>
-        </g>
-      </svg>
+    <div>
+      <div className="lds-dual-ring"></div>
+      <style>
+        {`
+          .lds-dual-ring {
+            display: inline-block;
+            width: ${size}px;
+            height: ${size}px;
+          }
+          .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: ${size - 16}px;
+            height: ${size - 16}px;
+            margin: 8px; 
+            border-radius: 50%;
+            border: 6px solid ${color};
+            border-color: ${color} transparent ${color} transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+          }
+          @keyframes lds-dual-ring {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 };
