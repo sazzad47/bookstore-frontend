@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import DefaultTemplate from "../components/templates/DefaultTemplate";
 
 // Routes configuration
-import { publicRoutes } from "./routes";
+import { RedirectToHome, publicRoutes } from "./routes";
 
 const Index: React.FC = () => {
     return (
@@ -17,6 +17,9 @@ const Index: React.FC = () => {
                     key={idx}
                 />
             ))}
+
+			{/* Redirect undefined routes to home */}
+            <Route path="*" element={<RedirectToHome />} />
         </Routes>
     );
 };

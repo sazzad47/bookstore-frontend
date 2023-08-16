@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 
 // Define public routes
@@ -6,4 +7,7 @@ const publicRoutes = [
     { path: "/home", component: <Home /> },
 ];
 
-export { publicRoutes };
+// This component handles the redirection for undefined routes
+const RedirectToHome = () => <Navigate to="/" />;
+
+export { publicRoutes, RedirectToHome };
