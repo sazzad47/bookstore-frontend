@@ -30,7 +30,7 @@ const useFetchData = (url: string, page: number = 1): FetchDataResult => {
             setError(null);
 
             // Fetch data from the backend API using axios
-            const response = await axios.get(`${backendUrl}/api/${url}?page=${page}`);
+            const response = await axios.get(`backend/api/${url}?page=${page}`);
             const newData = response.data.books;
 
             setData((prevData: Book[] | null) => {
