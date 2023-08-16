@@ -24,8 +24,6 @@ const Home: React.FC = () => {
     refetch();
   };
 
-  console.log("books", books);
-
   const { pullChange } = usePullToRefresh({ onRefresh });
 
   const lastBookElementRef = useCallback(
@@ -73,7 +71,8 @@ const Home: React.FC = () => {
             </div>
           )}
 
-          {error && <p className="error-message">Error: {error}</p>}
+          {error && <p className="message">Error: {error}</p>}
+          {!hasMore && <p className="message">End of results</p>}
       </div>
     </div>
   );

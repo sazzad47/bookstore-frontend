@@ -15,7 +15,7 @@ interface FetchDataResult {
 
 const useFetchData = (url: string, page: number = 1): FetchDataResult => {
 	const [data, setData] = useState<Book[] | null>(null);
-	const [hasMore, setHasMore] = useState<boolean>(false);
+	const [hasMore, setHasMore] = useState<boolean>(true);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 	const [isFetching, setIsFetching] = useState<boolean>(false);
