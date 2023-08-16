@@ -1,41 +1,63 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from 'axios';
+import axios from "axios";
 import Book from "../types/interfaces/Book";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-const useFetchData = ( url : string) => {
-  const [data, setData] = useState<Book[] | null>(null); 
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [isFetching, setIsFetching] = useState<boolean>(false); 
+interface FetchDataResult {
+	data: Book[] | null;
+	hasMore: boolean;
+	loading: boolean;
+	error: string | null;
+	isFetching: boolean;
+	refetch: () => void;
+}
 
-  const fetchData = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
+const useFetchData = (url: string, page: number = 1): FetchDataResult => {
+	const [data, setData] = useState<Book[] | null>(null);
+	const [hasMore, setHasMore] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = useState<string | null>(null);
+	const [isFetching, setIsFetching] = useState<boolean>(false);
 
-      const response = await axios.get(`${backendUrl}/api/${url}`);
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setError("An error occurred while fetching data.");
-    } finally {
-      setLoading(false);
-      setIsFetching(false);
-    }
-  }, [url]);
+	const fetchData = useCallback(async () => {
+		try {
+			setLoading(true);
+			setError(null);
 
-  const refetch = () => {
-    setIsFetching(true); 
-    fetchData();
-  };
+			const response = await axios.get(`${backendUrl}/api/${url}?page=${page}`);
+			const newData = response.data.books;
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+			setData((prevData: Book[] | null) => {
+				if (prevData === null || page === 1) {
+					return newData;
+				} else {
+					const mergedData = [...prevData, ...newData];
+					const uniqueData = mergedData.filter(
+						(book, index, self) => self.findIndex(b => b.id === book.id) === index
+					);
+					return uniqueData;
+				}
+			});
+			setHasMore(response.data.remainingBooks > 0);
+		} catch (error) {
+			setError("An error occurred while fetching data.");
+		} finally {
+			setLoading(false);
+			setIsFetching(false);
+		}
+	}, [url, page]);
 
-  return { data, loading, error, isFetching, refetch }; 
+	const refetch = () => {
+		setIsFetching(true);
+		fetchData();
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, [fetchData]);
+
+	return { data, hasMore, loading, error, isFetching, refetch };
 };
 
 export default useFetchData;
