@@ -12,7 +12,7 @@ const Card: React.FC<CardProps> = ({ book }) => {
         />
       </div>
       <div className="info">
-        <div className="name"> {book.title} </div>
+        <div className="title"> {book.title} </div>
         <div className="price-box">
           <div className="discount"> {book.discountRate}%</div>
           <div className="price">

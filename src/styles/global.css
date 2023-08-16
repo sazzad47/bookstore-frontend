@@ -32,17 +32,17 @@ body {
   
     /* Adjust width for small devices (up to 350px) */
     @media (max-width: 350px) {
-      width: 90%; /* Adjust as needed */
+      width: 95%; 
     }
   
     /* Adjust width for medium devices (between 350px and 700px) */
     @media (min-width: 350px) and (max-width: 700px) {
-      width: 70%; /* Adjust as needed */
+      width: 80%; 
     }
   
     /* Adjust width for larger devices (700px and above) */
     @media (min-width: 700px) {
-      width: 60%; /* Adjust as needed */
+      width: 50%; 
     }
   }
   
@@ -83,19 +83,9 @@ body {
     width: 100%;
     height: auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     justify-items: center;
     align-items: flex-start;
-  
-    /* For medium devices (e.g., tablets) */
-    @media (max-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  
-    /* For small devices (e.g., smartphones) */
-    @media (max-width: 480px) {
-      grid-template-columns: repeat(1, 1fr);
-    }
   }
   
   .card-list .card-container {
@@ -136,7 +126,7 @@ body {
     display: flex;
   }
   
-  .info .name {
+  .info .title {
     color: var(--n-10);
     font-family: "Noto Sans CJK KR-Medium", Helvetica;
     font-size: 14px;
@@ -148,10 +138,31 @@ body {
     position: relative;
     white-space: nowrap;
     width: 82.54%;
+
+    /* Adjust font for small devices (up to 350px) */
+    @media (max-width: 350px) {
+      font-size: 12px; 
+      height: 12px;
+      line-height: 12px;
+    }
+  
+    /* Adjust font for medium devices (between 350px and 700px) */
+    @media (min-width: 350px) and (max-width: 700px) {
+      font-size: 13px; 
+      height: 13px;
+      line-height: 13px; 
+    }
+  
+    /* Adjust font for larger devices (700px and above) */
+    @media (min-width: 700px) {
+      font-size: 14px; 
+      height: 14px;
+      line-height: 14px;
+    }
   }
   
   .info .price-box {
-    align-items: flex-start;
+    align-items: center;
     display: inline-flex;
     justify-content: space-between;
     position: relative;
@@ -169,6 +180,25 @@ body {
     position: relative;
     white-space: nowrap;
     width: fit-content;
+
+     /* Adjust font for small devices (up to 350px) */
+     @media (max-width: 350px) {
+      font-size: 12px; 
+      line-height: 12px;
+    }
+  
+    /* Adjust font for medium devices (between 350px and 700px) */
+    @media (min-width: 350px) and (max-width: 700px) {
+      font-size: 13px; 
+      line-height: 13px; 
+    }
+  
+    /* Adjust font for larger devices (700px and above) */
+    @media (min-width: 700px) {
+      font-size: 14px; 
+      line-height: 14px;
+    }
+
   }
   
   .price-box .price {
@@ -190,6 +220,25 @@ body {
     position: relative;
     white-space: nowrap;
     width: fit-content;
+
+    /* Adjust font for small devices (up to 350px) */
+    @media (max-width: 350px) {
+      font-size: 14px; 
+      line-height: 14px;
+    }
+  
+    /* Adjust font for medium devices (between 350px and 700px) */
+    @media (min-width: 350px) and (max-width: 700px) {
+      font-size: 15px; 
+      line-height: 15px; 
+    }
+  
+    /* Adjust font for larger devices (700px and above) */
+    @media (min-width: 700px) {
+      font-size: 16px; 
+      line-height: 16px;
+    }
+
   }
   
   .price .currency {
