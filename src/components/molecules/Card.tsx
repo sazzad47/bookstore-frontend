@@ -1,16 +1,11 @@
 import React from "react";
 import CardProps from "../../types/molecules/Card";
+import Image from "../atoms/Image";
 
 const Card: React.FC<CardProps> = ({ book }) => {
   return (
     <div className="card">
-      <div className="cover-image">
-        <img
-          className="imagesmode"
-          alt="Imagesmode"
-          src="https://anima-uploads.s3.amazonaws.com/projects/64da47c09e7225f2aa1a3abe/releases/64da4831b7c090d6dedf5155/img/imagesmode@2x.png"
-        />
-      </div>
+      <Image src={book.coverImage} alt="cover-image" className="cover-image" />
       <div className="info">
         <div className="title"> {book.title} </div>
         <div className="price-box">

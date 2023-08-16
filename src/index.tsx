@@ -4,7 +4,6 @@ import "./styles/global.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import ScrollToTop from "./components/common/ScrollToTop";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,9 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ScrollToTop>
         <App />
-      </ScrollToTop>
     </BrowserRouter>
   </React.StrictMode>
 );
