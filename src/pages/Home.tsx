@@ -9,77 +9,92 @@ import RefreshSpinner from "../components/molecules/RefreshSpinner";
 import Footer from "../components/organisms/Footer";
 
 const Home: React.FC = () => {
-  const observer = useRef<IntersectionObserver | null>(null);
-  const [page, setPage] = useState<number>(1);
-  const {
-    data: books = [],
-    hasMore,
-    refetch,
-    isFetching,
-    loading,
-    error,
-  } = useFetchData("book", page);
+    // Ref for the intersection observer
+    const observer = useRef<IntersectionObserver | null>(null);
 
-  const onRefresh = () => {
-    setPage(1);
-    refetch();
-  };
+    // State for pagination
+    const [page, setPage] = useState<number>(1);
 
-  const { pullChange } = usePullToRefresh({ onRefresh });
+    // Fetching data using custom hook
+    const {
+        data: books = [],
+        hasMore,
+        refetch,
+        isFetching,
+        loading,
+        error,
+    } = useFetchData("book", page);
 
-  const lastBookElementRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (loading || !hasMore) return;
+    // Callback for refreshing data
+    const onRefresh = () => {
+        setPage(1);
+        refetch();
+    };
 
-      if (observer.current) observer.current.disconnect();
+    // Custom hook for pull-to-refresh functionality
+    const { pullChange } = usePullToRefresh({ onRefresh });
 
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && hasMore) {
-            setPage((prevPageNumber) => prevPageNumber + 1);
-          }
-        },
-        { threshold: 0.8 }
-      );
+    // Callback for observing last book element
+    const lastBookElementRef = useCallback(
+        (node: HTMLDivElement | null) => {
+            if (loading || !hasMore) return;
 
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
+            if (observer.current) observer.current.disconnect();
 
-  return (
-    <div style={{ position: "relative" }} className="page">
-      <RefreshSpinner pullChange={pullChange} isFetching={isFetching} />
-      <div className="container">
-        <Header title="Books" />
-        <div className="card-list">
-          {books?.map((book: Book, index: number) => {
-            return (
-              <div
-                className="card-container"
-                ref={index === books.length - 1 ? lastBookElementRef : null}
-                key={index}
-              >
-                <Card book={book} />
-              </div>
+            observer.current = new IntersectionObserver(
+                (entries) => {
+                    if (entries[0].isIntersecting && hasMore) {
+                        setPage((prevPageNumber) => prevPageNumber + 1);
+                    }
+                },
+                { threshold: 0.8 } // Observe when 80% of the element is visible
             );
-          })}
-        </div>
-        {loading && (
-          <div
-            style={{
-              height: books?.length && books?.length > 0 ? "10vh" : "50vh",
-            }}
-            className="loading-card-list"
-          >
-            <LoadingSpinner />
-          </div>
-        )}
 
-        <Footer content={error || (!hasMore ? "End of results" : undefined)} />
-      </div>
-    </div>
-  );
+            if (node) observer.current.observe(node);
+        },
+        [loading, hasMore]
+    );
+
+    return (
+        <div style={{ position: "relative" }} className="page">
+            {/* Pull-to-refresh spinner */}
+            <RefreshSpinner pullChange={pullChange} isFetching={isFetching} />
+
+            <div className="container">
+                <Header title="Books" />
+
+                <div className="card-list">
+                    {/* Render list of book cards */}
+                    {books?.map((book: Book, index: number) => {
+                        return (
+                            <div
+                                className="card-container"
+                                ref={index === books.length - 1 ? lastBookElementRef : null}
+                                key={index}
+                            >
+                                <Card book={book} />
+                            </div>
+                        );
+                    })}
+                </div>
+
+                {/* Show loading spinner if data is being fetched */}
+                {loading && (
+                    <div
+                        style={{
+                            height: books?.length && books?.length > 0 ? "10vh" : "50vh",
+                        }}
+                        className="loading-card-list"
+                    >
+                        <LoadingSpinner />
+                    </div>
+                )}
+
+                {/* Show error or "End of results" in the footer */}
+                <Footer content={error || (!hasMore ? "End of results" : undefined)} />
+            </div>
+        </div>
+    );
 };
 
 export default Home;

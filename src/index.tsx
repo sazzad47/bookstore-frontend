@@ -5,15 +5,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
+// Create a root element for ReactDOM
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
+
+// Render the App component inside the root element
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
-  </React.StrictMode>
+    <React.StrictMode>
+        {/* Use BrowserRouter to handle routing */}
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

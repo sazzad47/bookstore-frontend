@@ -1,11 +1,12 @@
 import Routes from "./routes";
 
 function App() {
-  return (
-    <>
-      <Routes/>
-    </>
-  );
+    return (
+        <>
+            {/* Use the defined Routes component */}
+            <Routes />
+        </>
+    );
 }
 
 export default App;
