@@ -2,9 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import Book from "../types/interfaces/Book";
 
-// Get the backend URL from environment variables
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
 // Define the shape of the data returned by the custom hook
 interface FetchDataResult {
     data: Book[] | null;
