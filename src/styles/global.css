@@ -254,9 +254,12 @@ body {
     justify-content: center;
     align-items: center;
   }
-  
-  .message {
-    padding: 4px;
-    text-align: center;
+
+  .footer {
+    width: 100%;
   }
   
+  .footer .content {
+    padding: 5px;
+    text-align: center;
+  }

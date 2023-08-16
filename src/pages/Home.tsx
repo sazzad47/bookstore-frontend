@@ -6,6 +6,7 @@ import Book from "../types/interfaces/Book";
 import LoadingSpinner from "../components/molecules/LoadingSpinner";
 import Header from "../components/organisms/Header";
 import RefreshSpinner from "../components/molecules/RefreshSpinner";
+import Footer from "../components/organisms/Footer";
 
 const Home: React.FC = () => {
   const observer = useRef<IntersectionObserver | null>(null);
@@ -38,7 +39,7 @@ const Home: React.FC = () => {
             setPage((prevPageNumber) => prevPageNumber + 1);
           }
         },
-        { threshold: 0.8 } 
+        { threshold: 0.8 }
       );
 
       if (node) observer.current.observe(node);
@@ -55,24 +56,27 @@ const Home: React.FC = () => {
           {books?.map((book: Book, index: number) => {
             return (
               <div
-              className="card-container"
-              ref={index === books.length - 1 ? lastBookElementRef : null}
-              key={index}
+                className="card-container"
+                ref={index === books.length - 1 ? lastBookElementRef : null}
+                key={index}
               >
                 <Card book={book} />
               </div>
             );
           })}
-
         </div>
-          {loading && (
-            <div style={{height: books?.length && books?.length > 0? "10vh" : "50vh" }} className="loading-card-list">
-              <LoadingSpinner />
-            </div>
-          )}
+        {loading && (
+          <div
+            style={{
+              height: books?.length && books?.length > 0 ? "10vh" : "50vh",
+            }}
+            className="loading-card-list"
+          >
+            <LoadingSpinner />
+          </div>
+        )}
 
-          {error && <p className="message">Error: {error}</p>}
-          {!hasMore && <p className="message">End of results</p>}
+        <Footer content={error || (!hasMore ? "End of results" : undefined)} />
       </div>
     </div>
   );
