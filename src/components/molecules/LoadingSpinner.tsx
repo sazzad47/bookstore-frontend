@@ -3,11 +3,11 @@ import LoadingSpinnerProps from '../../types/molecules/LoadingSpinner';
 
 // Define the LoadingSpinner component
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 40, color = '#701a75' }) => {
-    return (
-        <div>
-            <div className="lds-dual-ring"></div>
-            <style>
-                {`
+  return (
+    <div>
+      <div className="lds-dual-ring"></div>
+      <style>
+        {`
                 /* Style for the loading spinner animation */
                 .lds-dual-ring {
                     display: inline-block;
@@ -34,9 +34,9 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ size = 40, color = '#70
                     }
                 }
                 `}
-            </style>
-        </div>
-    );
+      </style>
+    </div>
+  );
 };
 
 export default LoadingSpinner;

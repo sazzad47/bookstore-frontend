@@ -1,28 +1,22 @@
-import React from "react";
-import RefreshSpinnerProps from "../../types/molecules/RefreshSpinner";
+import React from 'react';
+import RefreshSpinnerProps from '../../types/molecules/RefreshSpinner';
 
-const RefreshSpinner: React.FC<RefreshSpinnerProps> = ({
-    size = 28,
-    color = "#ec4899",
-    pullChange = 0,
-    isFetching
-}) => {
-    return (
-        <div
-            style={{
-                marginTop: isFetching ? "1rem" : "-3rem",
-                position: "absolute",
-                top: `${pullChange / 3.118}px`,
-                zIndex: 1,
-            }}
-            className=""
-        >
-            <div className="loader">
-                <span className="loader-before"></span>
-                <span className="loader-after"></span>
-            </div>
-            <style>
-                {`
+const RefreshSpinner: React.FC<RefreshSpinnerProps> = ({ size = 28, color = '#ec4899', pullChange = 0, loading }) => {
+  return (
+    <div
+      style={{
+        marginTop: loading ? '1rem' : '-3rem',
+        position: 'absolute',
+        top: `${pullChange / 3.118}px`,
+        zIndex: 1,
+      }}
+      className="">
+      <div className="loader">
+        <span className="loader-before"></span>
+        <span className="loader-after"></span>
+      </div>
+      <style>
+        {`
                     .loader {
                         width: ${size}px;
                         height: ${size}px;
@@ -50,13 +44,13 @@ const RefreshSpinner: React.FC<RefreshSpinnerProps> = ({
                             transform: rotate(0deg);
                         }
                         100% {
-                            transform: rotate(${isFetching ? "360" : pullChange}deg);
+                            transform: rotate(${loading ? '360' : pullChange}deg);
                         }
                     } 
                 `}
-            </style>
-        </div>
-    );
+      </style>
+    </div>
+  );
 };
 
 export default RefreshSpinner;

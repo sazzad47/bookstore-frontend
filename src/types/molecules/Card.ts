@@ -1,4 +1,4 @@
-import Book from "../interfaces/Book";
+import Book from '../interfaces/Book';
 
 interface CardProps {
   book: Book;

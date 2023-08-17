@@ -1,7 +1,6 @@
-
 interface LoadingSpinnerProps {
-    size?: number;
-    color?: string;
-  }
+  size?: number;
+  color?: string;
+}
 
 export default LoadingSpinnerProps;
